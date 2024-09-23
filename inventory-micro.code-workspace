@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "api-gateway"
+		},
+		{
+			"path": "authservice"
+		},
+		{
+			"path": "eureka-server"
+		},
+		{
+			"path": "basedomain"
+		},
+		{
+			"path": "masterservice"
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic"
+	}
+}
