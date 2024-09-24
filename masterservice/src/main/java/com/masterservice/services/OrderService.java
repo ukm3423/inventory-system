@@ -143,12 +143,20 @@ public class OrderService {
     public List<OrderDetails> getOrderDetailsByproduct(Product product) {
 
         List<OrderDetails> orderDetails = orderDetailsRepo.findByProductAndStatus(product, 1);
-
         
 
         return orderDetails;
     }
 
+    public List<OrderDetails> getQuantityByProductId(Long productId){
+
+        Product product = productRepo.findById(productId).orElseThrow(() -> new IllegalStateException("Product not found of id " + productId));
+
+        List<OrderDetails> orderDetails = orderDetailsRepo.findByProductAndStatus(product, 1);
+
+
+        return orderDetails;
+    }
 
 
 

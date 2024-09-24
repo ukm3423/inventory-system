@@ -14,9 +14,13 @@
 		},
 		{
 			"path": "masterservice"
+		},
+		{
+			"path": "purchase-service"
 		}
 	],
 	"settings": {
-		"java.configuration.updateBuildConfiguration": "automatic"
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"java.debug.settings.onBuildFailureProceed": true
 	}
 }

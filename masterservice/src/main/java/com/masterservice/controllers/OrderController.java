@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.masterservice.mapper.OrderResponse;
 import com.masterservice.mapper.PlaceOrderRequest;
 import com.masterservice.models.Order;
+import com.masterservice.models.OrderDetails;
 import com.masterservice.services.OrderService;
 
 @CrossOrigin
@@ -29,7 +30,7 @@ public class OrderController {
     private OrderService orderService;
 
     /*
-     * Place a New Order 
+     * Place a New Order
      */
     @PostMapping("/place-order")
     public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderRequest req) {
@@ -43,8 +44,8 @@ public class OrderController {
     }
 
     @GetMapping("/get-order-list")
-    public ResponseEntity<?> getOrderList(){
-        
+    public ResponseEntity<?> getOrderList() {
+
         List<Order> orderList = orderService.getAllOrders();
 
         return ResponseEntity.status(HttpStatus.OK).body(orderList);
@@ -69,6 +70,31 @@ public class OrderController {
 
         resp.put("message", "Order Details Retrieved Successfully");
         resp.put("data", order);
+        resp.put("status", true);
+
+        return ResponseEntity.status(HttpStatus.OK).body(resp);
+    }
+
+    /**
+     * * Get Order By Id
+     * * API : http://localhost:8082/masterservice/api/order/get/2
+     * 
+     * @param OrderId
+     * @return
+     */
+    @GetMapping("/get-product-quantity/{id}")
+    public ResponseEntity<?> getProductQuantityById(@PathVariable("id") Long productId) {
+
+        List<OrderDetails> orderDetailsList = orderService.getQuantityByProductId(productId);
+        // Calculate the total quantity
+        Integer totalQuantity = orderDetailsList.stream()
+                .mapToInt(OrderDetails::getQuantity)
+                .sum();
+
+        Map<Object, Object> resp = new HashMap<>();
+
+        resp.put("message", "Order Details Retrieved Successfully");
+        resp.put("quantity", totalQuantity);
         resp.put("status", true);
 
         return ResponseEntity.status(HttpStatus.OK).body(resp);
